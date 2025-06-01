@@ -1,0 +1,30 @@
+<div class="table-container">
+  @if (visibleItems$ | async; as items) {
+    @if (headers$ | async; as allHeaders) { <!-- Přejmenováno pro jasnost, toto je allColumnHeaders$ -->
+      <table>
+        <thead>
+          <tr>
+            @for (header of allHeaders; track header) {
+              <th>{{ header }}</th> <!-- Zde jsou TH elementy -->
+            }
+            <th>delete</th> <!-- TH pro delete sloupec -->
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of items; track trackById($index, item)) {
+            <app-hierarchy-row
+                [item]="item"
+                [headers]="allHeaders"
+                (toggleExpand)="onToggleExpand($event)"
+                (deleteItem)="onDeleteItem($event)">
+            </app-hierarchy-row>
+          } @empty {
+            <tr class="no-data-message">
+              <td [attr.colspan]="(allHeaders?.length || 0) + 1">No data available.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    } @else { <p>Loading headers...</p> }
+  } @else { <p>Loading items...</p> }
+</div>

@@ -1,0 +1,25 @@
+
+<tr>
+  @for (header of headers; track header; let firstCol = $first) {
+    <td
+      [style.padding-left]="firstCol ? (item.level * 20) + 'px' : null"
+      (click)="firstCol && item.hasChildren ? onToggleExpandInternal() : null"
+      [class.expandable]="firstCol && item.hasChildren">
+
+      @if (firstCol && item.hasChildren) {
+        <span class="toggle-icon">{{ item.isExpanded ? '▼' : '►' }}</span>
+      }
+      {{item.data[header] | json}}
+
+      {{ item.data[header] !== null && item.data[header] !== undefined ? item.data[header] : '' }}
+    </td>
+  }
+  <td>
+    <button
+      (click)="onDeleteItemInternal()"
+      attr.aria-label="Smazat položku {{ item.data['Name'] || item.originalId }}">
+      ❌
+    </button>
+  </td>
+</tr>
+

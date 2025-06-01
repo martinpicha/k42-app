@@ -14,7 +14,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@k42-app/hierarchy/data-access": ["libs/hierarchy/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
